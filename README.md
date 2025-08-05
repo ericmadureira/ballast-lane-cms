@@ -161,9 +161,3 @@ If time allowed, I would:
 4. **Implemented Backend First** → Ensured authentication and content APIs worked before frontend integration.
 5. **Integrated Frontend** → Minimal but functional UI for CRUD and role-based access.
 6. **Tested with Seed Data** → Allows interview panel to quickly evaluate functionality.
-
----
-
-## License
-
-MIT
