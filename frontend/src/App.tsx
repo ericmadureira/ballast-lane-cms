@@ -1,11 +1,16 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
-import Protected from "./pages/Protected";
+import PostsList from "./pages/PostsList";
+import Register from "./pages/Register";
 
 export default function App() {
   return (
-    <div>
-      <Login />
-      <Protected />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/auth/register" element={<Register />} />
+        <Route path="/posts" element={<PostsList />} />
+      </Routes>
+    </Router>
   );
 }
