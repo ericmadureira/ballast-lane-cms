@@ -1,9 +1,12 @@
+import cors from 'cors';
+import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
 import passport from 'passport';
-import dotenv from 'dotenv';
-import sequelize from './db';
 import passportConfig from './config/passport';
+import sequelize from './db';
+
+const PORT = process.env.PORT || 3000;
 
 dotenv.config();
 
@@ -13,11 +16,18 @@ const app = express();
 app.use(helmet());
 app.use(express.json());
 
+// CORS config to allow frontend access.
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || '*', // Can be "http://localhost:5173" if restrict.
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 // Passport
 passportConfig(passport);
 app.use(passport.initialize());
 
-// Rotas
+// Routes
 import authRoutes from './routes/auth.routes';
 import postRoutes from './routes/post.routes';
 app.use('/auth', authRoutes);
