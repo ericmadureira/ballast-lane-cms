@@ -1,5 +1,6 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { EventEmitter } from 'events';
 import express from 'express';
 import helmet from 'helmet';
 import passport from 'passport';
@@ -11,6 +12,10 @@ const PORT = process.env.PORT || 3000;
 dotenv.config();
 
 const app = express();
+
+// Redis / Events
+const eventBus = new EventEmitter();
+app.set('eventBus', eventBus);
 
 // Middlewares
 app.use(helmet());
@@ -29,8 +34,10 @@ app.use(passport.initialize());
 
 // Routes
 import authRoutes from './routes/auth.routes';
+import commentRoutes from './routes/comment.routes';
 import postRoutes from './routes/post.routes';
 app.use('/auth', authRoutes);
+app.use('/posts', commentRoutes);
 app.use('/posts', postRoutes);
 
 // DB sync + Start server

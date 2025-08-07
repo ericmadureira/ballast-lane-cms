@@ -1,13 +1,9 @@
-import { Sequelize } from 'sequelize';
+import sequelize from './config/sequelize';
+import Post from './models/post.model';
+import Comment from './models/comment.model';
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME || 'cmsdb',
-  process.env.DB_USER || 'admin',
-  process.env.DB_PASS || 'admin',
-  {
-    host: process.env.DB_HOST || 'cms_db',
-    dialect: 'postgres'
-  }
-);
+// Associations (order matters!)
+Post.hasMany(Comment);
+Comment.belongsTo(Post);
 
 export default sequelize;
