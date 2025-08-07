@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api";
-import "./PostsList.css";
+import PostComments from '../components/PostComments';
+import "./PostList.css";
 
 interface Post {
   id: number;
@@ -8,7 +9,7 @@ interface Post {
   content: string;
 }
 
-export default function PostsList() {
+export default function PostList() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -62,6 +63,7 @@ export default function PostsList() {
           <li key={post.id}>
             <h3>{post.title}</h3>
             <p>{post.content}</p>
+            <PostComments postId={post.id} />
           </li>
         ))}
       </ul>
